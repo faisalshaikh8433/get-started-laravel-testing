@@ -14,3 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware('auth')->post('/teams', function () {
+  $attributes = request()->validate(['name'=>'required']);
+  $attributes['user_id'] = auth()->id();
+
+  App\Team::create($attributes);
+});
+
+Route::get('login', function () {
+  // return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
